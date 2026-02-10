@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # 如果你的主分支叫 master，請改為 master
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -15,19 +15,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          # 這裡刪除了 cache: 'npm'，因為你沒有 package-lock.json
+
       - name: Install dependencies
+        # 使用 npm install 而非 npm ci，因為後者強制需要 lock 檔案
         run: npm install
+
       - name: Build
         run: npm run build
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist # Vite 打包後的資料夾
+          path: ./dist
 
   deploy:
     environment:
