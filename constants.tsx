@@ -2,6 +2,7 @@
 import React from 'react';
 import { Facebook, Instagram } from 'lucide-react';
 import { InfoItem } from './types';
+import { INFO_DATA } from './InfoData';
 
 export const LOGO_URL = "https://github.com/stcy2828/GMusicWebsite/blob/main/material/Gmusic-logo-01.png?raw=true";
 
@@ -21,8 +22,8 @@ export const NAV_LINKS = [
 const generatePosters = () => {
   const posters = [];
   
-  // 2025 Posters: 01 to 15
-  for (let i = 1; i <= 15; i++) {
+  // 2025 Posters: 01 to 16
+  for (let i = 1; i <= 16; i++) {
     const num = i.toString().padStart(2, '0');
     posters.push({
       id: `2025-${num}`,
@@ -233,26 +234,36 @@ export const TOP_POSTERS = ALL_POSTERS
 // Sorted ascending by name to ensure 01 -> N order (fixing the reverse order issue)
 export const EVENT_POSTERS = [...ALL_POSTERS].sort((a, b) => a.name.localeCompare(b.name));
 
-// Removed default items to satisfy user request for backend-only content
-export const DEFAULT_INFO_ITEMS: InfoItem[] = [];
-
 export const STORAGE_KEY = 'gmusic_info_items';
 
+// Restoring getStoredInfo to support admin panel
 export const getStoredInfo = (): InfoItem[] => {
+  if (typeof window === 'undefined') return INFO_DATA;
+  
   const stored = localStorage.getItem(STORAGE_KEY);
   if (!stored) {
-    // Initialize with empty array if no data exists
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
-    return [];
+    // If no data in local storage, fall back to the static file data
+    return INFO_DATA;
   }
+  
   try {
     const parsed = JSON.parse(stored);
-    return Array.isArray(parsed) ? parsed : [];
+    // Return parsed data if valid, otherwise fallback
+    return Array.isArray(parsed) ? parsed : INFO_DATA;
   } catch (e) {
-    return [];
+    return INFO_DATA;
   }
 };
 
+// Restoring saveInfo to support admin panel
 export const saveInfo = (items: InfoItem[]) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    window.dispatchEvent(new Event('info-update'));
+  }
+};
+
+// Update getInfoItems to check storage first (allowing admin updates to take effect)
+export const getInfoItems = (): InfoItem[] => {
+  return getStoredInfo();
 };

@@ -10,6 +10,7 @@ import EventPage from './pages/EventPage';
 import ContactPage from './pages/ContactPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import BackendMain from './pages/BackendMain';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -18,25 +19,24 @@ const App: React.FC = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  // Don't show header/footer on login or backend pages to keep focus
-  const isAdminView = location.pathname.startsWith('/admin');
-
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden selection:bg-[#D4AF37] selection:text-black">
-      {!isAdminView && <Header />}
-      <div className="flex-grow">
-        <Routes>
-          <Route path="/" element={<TopPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/brand" element={<OurBrandPage />} />
-          <Route path="/event" element={<EventPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/admin-login" element={<AdminLoginPage />} />
-          <Route path="/admin/dashboard" element={<BackendMain />} />
-        </Routes>
+    <LanguageProvider>
+      <div className="min-h-screen flex flex-col overflow-x-hidden selection:bg-[#D4AF37] selection:text-black">
+        <Header />
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<TopPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/brand" element={<OurBrandPage />} />
+            <Route path="/event" element={<EventPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/admin-login" element={<AdminLoginPage />} />
+            <Route path="/admin/dashboard" element={<BackendMain />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
-      {!isAdminView && <Footer />}
-    </div>
+    </LanguageProvider>
   );
 };
 
