@@ -165,8 +165,8 @@ const generatePosters = () => {
     });
   }
 
-        // 2012 Posters: 01 to 06
-  for (let i = 1; i <= 6; i++) {
+        // 2012 Posters: 01 to 07
+  for (let i = 1; i <= 7; i++) {
     const num = i.toString().padStart(2, '0');
     posters.push({
       id: `2012-${num}`,
