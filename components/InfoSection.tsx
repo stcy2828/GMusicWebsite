@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 // 1. 直接引入原始資料，避免透過 constants 轉手
-import { INFO_DATA } from '../infodata'; 
+import { INFO_DATA } from '../InfoData'; 
 import { InfoItem } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 
