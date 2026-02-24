@@ -122,7 +122,7 @@ export const translations = {
     },
     contact: {
       title: 'お問い合わせ',
-      address_label: '住所',
+      address_label: '本社所在地',
       address_val: 'Room 1808, Midas Plaza,\n1 Tai Yau Street,\nSan Po Kong, Kowloon,\nHong Kong',
       tel_label: '電話番号',
       fax_label: 'ファックス',
