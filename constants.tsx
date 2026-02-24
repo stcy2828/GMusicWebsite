@@ -2,7 +2,8 @@
 import React from 'react';
 import { Facebook, Instagram } from 'lucide-react';
 import { InfoItem } from './types';
-import { INFO_DATA } from './InfoData';
+import { INFO_DATA_EN, INFO_DATA_TC, INFO_DATA_JP } from './InfoData';
+import { LanguageType } from './constants/translations';
 
 export const LOGO_URL = "https://github.com/stcy2828/GMusicWebsite/blob/main/material/Gmusic-logo-01.png?raw=true";
 
@@ -237,33 +238,37 @@ export const EVENT_POSTERS = [...ALL_POSTERS].sort((a, b) => a.name.localeCompar
 export const STORAGE_KEY = 'gmusic_info_items';
 
 // Restoring getStoredInfo to support admin panel
-export const getStoredInfo = (): InfoItem[] => {
-  if (typeof window === 'undefined') return INFO_DATA;
+export const getStoredInfo = (lang: LanguageType = 'EN'): InfoItem[] => {
+  if (typeof window === 'undefined') return INFO_DATA_EN;
   
-  const stored = localStorage.getItem(STORAGE_KEY);
+  const key = `${STORAGE_KEY}_${lang}`;
+  const defaultData = lang === 'TC' ? INFO_DATA_TC : lang === 'JP' ? INFO_DATA_JP : INFO_DATA_EN;
+  
+  const stored = localStorage.getItem(key);
   if (!stored) {
     // If no data in local storage, fall back to the static file data
-    return INFO_DATA;
+    return defaultData;
   }
   
   try {
     const parsed = JSON.parse(stored);
     // Return parsed data if valid, otherwise fallback
-    return Array.isArray(parsed) ? parsed : INFO_DATA;
+    return Array.isArray(parsed) ? parsed : defaultData;
   } catch (e) {
-    return INFO_DATA;
+    return defaultData;
   }
 };
 
 // Restoring saveInfo to support admin panel
-export const saveInfo = (items: InfoItem[]) => {
+export const saveInfo = (items: InfoItem[], lang: LanguageType = 'EN') => {
   if (typeof window !== 'undefined') {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    const key = `${STORAGE_KEY}_${lang}`;
+    localStorage.setItem(key, JSON.stringify(items));
     window.dispatchEvent(new Event('info-update'));
   }
 };
 
 // Update getInfoItems to check storage first (allowing admin updates to take effect)
-export const getInfoItems = (): InfoItem[] => {
-  return getStoredInfo();
+export const getInfoItems = (lang: LanguageType = 'EN'): InfoItem[] => {
+  return getStoredInfo(lang);
 };
