@@ -9,7 +9,7 @@ export const LOGO_URL = "https://github.com/stcy2828/GMusicWebsite/blob/main/mat
 
 export const SOCIAL_LINKS = [
   { name: 'Facebook', icon: <Facebook size={20} />, url: 'https://www.facebook.com/GMusichkltd' },
-  { name: 'Instagram', icon: <Instagram size={20} />, url: 'https://www.instagram.com/gmusichk_' },
+  { name: 'Instagram', icon: <Instagram size={20} />, url: 'https://www.instagram.com/gmusichk' },
 ];
 
 export const NAV_LINKS = [
