@@ -3,6 +3,12 @@ import { InfoItem } from './types';
 
 export const INFO_DATA_EN: InfoItem[] = [
   {
+    id: '20260419-01',
+    date: '2026-04-19',
+    title: '“w-inds. 25th Anniversary Best Single LIVE TOUR 2026 “GOLDEN SINGLES” in Hong Kong” Announced! ',
+    category: 'NEWS'
+  },
+  {
     id: '20260211-01',
     date: '2026-02-11',
     title: 'G Music official website has been renewed.',
@@ -30,6 +36,12 @@ export const INFO_DATA_EN: InfoItem[] = [
 
 export const INFO_DATA_TC: InfoItem[] = [
   {
+    id: '20260419-01',
+    date: '2026-04-19',
+    title: '正式宣佈舉辦「w-inds. 25th Anniversary Best Single LIVE TOUR 2026 “GOLDEN SINGLES” in Hong Kong」！',
+    category: 'NEWS'
+  },
+  {
     id: '20260211-01',
     date: '2026-02-11',
     title: 'G Music 官方網站已更新。',
@@ -56,6 +68,12 @@ export const INFO_DATA_TC: InfoItem[] = [
 ];
 
 export const INFO_DATA_JP: InfoItem[] = [
+  {
+    id: '20260419-01',
+    date: '2026-04-19',
+    title: '「w-inds. 25th Anniversary Best Single LIVE TOUR 2026 “GOLDEN SINGLES” in Hong Kong」開催決定！',
+    category: 'NEWS'
+  },
   {
     id: '20260211-01',
     date: '2026-02-11',
